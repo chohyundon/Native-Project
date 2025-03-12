@@ -18,8 +18,11 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
 
+
   button: {
     width: 40,
+    height: 40,
+    paddingLeft: 0,
   },
 });
 

@@ -2,7 +2,6 @@ import {StyleSheet, Text, View} from "react-native";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PrevButton from "@/components/button/PrevButton";
-import CustomButton from "@/components/button/CustomButton";
 import FixedButton from "@/components/button/FixedButton";
 import {Ionicons} from "@expo/vector-icons";
 
