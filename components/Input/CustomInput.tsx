@@ -1,4 +1,5 @@
 import {StyleSheet, Text, TextInput, TextInputProps, View} from "react-native";
+import {ForwardedRef, forwardRef} from "react";
 
 interface InputFieldProps extends TextInputProps {
   label?: string
@@ -7,11 +8,12 @@ interface InputFieldProps extends TextInputProps {
 }
 
 
-function CustomTextInput({label, placeholder, error,  ...props }: InputFieldProps) {
+function CustomTextInput({label, placeholder, error,  ...props }: InputFieldProps, ref: ForwardedRef<TextInput>) {
   return (
     <View style={styles.inputContainer}>
       {label && <Text style={styles.title}>{label}</Text>}
       <TextInput
+        ref={ref}
         autoCapitalize="none"
         spellCheck={false}
         autoCorrect={false}
@@ -56,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomTextInput;
+export default forwardRef(CustomTextInput);

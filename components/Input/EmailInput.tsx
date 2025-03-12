@@ -3,7 +3,7 @@ import CustomTextInput from "@/components/Input/CustomInput";
 import { Controller, useFormContext } from "react-hook-form";
 
 function EmailInput() {
-  const { control } = useFormContext();
+  const { control, setFocus } = useFormContext();
   const emailRegx = /^\w{3,}@[a-zA-Z]{2,}\.[a-zA-Z]{2,}$/;
 
   return (
@@ -27,6 +27,7 @@ function EmailInput() {
           value={value}
           placeholder="이메일을 입력해주세요."
           submitBehavior="submit"
+          onSubmitEditing={() => setFocus('password')}
           error={error?.message}
         />
       )}
