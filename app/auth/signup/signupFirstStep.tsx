@@ -37,9 +37,11 @@ function SignUpFirstStep() {
   return (
     <FormProvider {...signUpForm}>
       <SafeAreaView style={styles.container}>
+        <View style={styles.inputContainer}>
           <EmailInput />
           <PasswordInput />
           <PasswordConfirmInput />
+        </View>
         <View style={styles.buttonContainer}>
           <FixedButton
             label="계속하기"
@@ -57,6 +59,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
   },
 
+  inputContainer: {
+    flex:1,
+  },
 
   buttonContainer: {
     flex: 1,

@@ -1,10 +1,9 @@
-import { StyleSheet, View } from "react-native";
 import CustomTextInput from "@/components/Input/CustomInput";
 import { Controller, useFormContext } from "react-hook-form";
+import {emailRegx} from "@/utils/Regx";
 
 function EmailInput() {
   const { control, setFocus } = useFormContext();
-  const emailRegx = /^\w{3,}@[a-zA-Z]{2,}\.[a-zA-Z]{2,}$/;
 
   return (
     <Controller
@@ -35,6 +34,5 @@ function EmailInput() {
   );
 }
 
-const styles = StyleSheet.create({});
 
 export default EmailInput;

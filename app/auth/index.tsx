@@ -13,7 +13,7 @@ function AuthScreen() {
         <Ionicons name="logo-apple" size={60} color="black"  />
       </View>
       <View style={styles.buttonContainer}>
-        <FixedButton label='계속하기' onPress={() => router.push("/auth/signup/signupFirstStep")} />
+        <FixedButton label='계속하기' onPress={() => router.push("/auth/signup/SignUpSecondStep")} />
       </View>
     </SafeAreaView>
   );

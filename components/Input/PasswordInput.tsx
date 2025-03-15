@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Controller, useFormContext } from "react-hook-form";
 import CustomTextInput from "@/components/Input/CustomInput";
-import {setFips} from "node:crypto";
+import {passwordRegx} from "@/utils/Regx";
 
 function PasswordInput() {
   const { control, setFocus } = useFormContext();
@@ -12,14 +12,11 @@ function PasswordInput() {
       control={control}
       rules={{
         required: '비밀번호를 입력해주세요',
-        minLength: {
-          value: 6,
-          message: '비밀번호는 최소 6글자 이상 작성해주세요'
-        },
-        maxLength: {
-          value: 12,
-          message: '비밀번호는 최대 12글자 이하로 작성해주세요'
-        },
+        validate: (data) => {
+          if(!passwordRegx.test(data)) {
+            return "비밀번호는 특수문자 포함, 6~15글자로 작성해주세요";
+          }
+        }
       }}
       render={({ field: { ref, value, onChange }, fieldState: { error }}) => (
         <CustomTextInput

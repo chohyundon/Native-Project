@@ -1,60 +1,80 @@
-import {StyleSheet, Text, TextInput, TextInputProps, View} from "react-native";
-import {ForwardedRef, forwardRef} from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from "react-native";
+import { ForwardedRef, forwardRef } from "react";
 
 interface InputFieldProps extends TextInputProps {
-  label?: string
-  error?: string
-  placeholder?: string
+  label?: string;
+  error?: string;
+  placeholder?: string;
+  size?: "medium" | "large" | "another";
 }
 
+function CustomTextInput(
+  { label, placeholder, size = "large", error, ...props }: InputFieldProps,
+  ref: ForwardedRef<TextInput>
+) {
 
-function CustomTextInput({label, placeholder, error,  ...props }: InputFieldProps, ref: ForwardedRef<TextInput>) {
   return (
     <View style={styles.inputContainer}>
-      {label && <Text style={styles.title}>{label}</Text>}
+      {label && <Text style={[styles.title]}>{label}</Text>}
       <TextInput
         ref={ref}
         autoCapitalize="none"
         spellCheck={false}
         autoCorrect={false}
         placeholder={placeholder}
-        style={[styles.container, error && styles.errorBorder]}
+        style={[styles.container, styles[size], error && styles.errorBorder]}
         {...props}
       />
-      {error && <Text style={styles.errorFont}>{error}</Text>}
+      <View style={{ minHeight: 30 }}>
+        {error && <Text style={[styles.errorFont]}>{error}</Text>}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flex: 0.2,
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: "center",
   },
 
   title: {
     fontSize: 14,
-    color: 'gray'
+    color: "gray",
+  },
+
+  mediumTitle: {
+    flex: 1,
   },
 
   container: {
     width: "100%",
     borderBottomWidth: 1,
-    borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 3,
+
     fontSize: 16,
+    height: 30,
   },
+
+  another: {},
+
+  large: {},
+
+  medium: {},
 
   errorBorder: {
-    borderColor: 'red',
+    borderColor: "red",
   },
 
+  mediumError: {},
+
   errorFont: {
-    color: 'red',
-    paddingHorizontal: 3,
-    position: 'absolute',
-    top: 70,
+    color: "red",
   },
 });
 
