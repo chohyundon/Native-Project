@@ -32,51 +32,11 @@ function SignUpSecondStep() {
         <View style={styles.inputContainer}>
           <UserNameInput />
           <View style={styles.residentContainer}>
-            <Text>생년월일</Text>
+            <Text style={styles.title}>생년월일</Text>
             <View style={styles.resident}>
-              <Controller
-                name="residentFirst"
-                control={signUpForm.control}
-                rules={{
-                  validate: (data) => {
-                    if (!residentNumber.test(data)) {
-                      return "생년월일을 다시 입력해주세요";
-                    }
-                  },
-                }}
-                render={({
-                  field: { onChange, value },
-                  fieldState: { error },
-                }) => (
-                  <ResidentInput
-                    value={value}
-                    onChangeText={onChange}
-                    error={error?.message}
-                  />
-                )}
-              />
+              <ResidentInput />
               <Text style={styles.dash}></Text>
-              <Controller
-                name="residentLast"
-                control={signUpForm.control}
-                rules={{
-                  validate: (data) => {
-                    if (!lastResidentNumber.test(data)) {
-                      return "생년월일을 다시 입력해주세요";
-                    }
-                  },
-                }}
-                render={({
-                  field: { onChange, value },
-                  fieldState: { error },
-                }) => (
-                  <LastResidentNumber
-                    value={value}
-                    onChangeText={onChange}
-                    // error={error?.message}
-                  />
-                )}
-              />
+              <LastResidentNumber />
             </View>
           </View>
         </View>
@@ -99,6 +59,11 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
+  },
+
+  title: {
+    fontSize: 14,
+    color: "gray",
   },
 
   residentContainer: {

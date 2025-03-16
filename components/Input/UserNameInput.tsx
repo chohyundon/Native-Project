@@ -4,7 +4,7 @@ import CustomTextInput from "@/components/Input/CustomInput";
 import {nameRegx} from "@/utils/Regx";
 
 function UserNameInput() {
-  const { control } = useFormContext();
+  const { control, setFocus } = useFormContext();
 
   return (
     <Controller
@@ -27,6 +27,7 @@ function UserNameInput() {
           submitBehavior="submit"
           placeholder="이름을 입력해주세요"
           error={error?.message}
+          onSubmitEditing={() => setFocus('residentFirst')}
         />
       )}
     />
