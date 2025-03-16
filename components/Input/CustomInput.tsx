@@ -64,7 +64,12 @@ const styles = StyleSheet.create({
 
   large: {},
 
-  medium: {},
+  medium: {
+    // width: "100%",
+    // borderBottomWidth: 1,
+    // fontSize: 16,
+    // height: 30,
+  },
 
   errorBorder: {
     borderColor: "red",
