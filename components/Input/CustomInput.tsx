@@ -40,7 +40,7 @@ function CustomTextInput(
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flex: 1,
+    flex: 0.3,
     justifyContent: "center",
   },
 
@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     borderBottomWidth: 1,
-
     fontSize: 16,
     height: 30,
   },

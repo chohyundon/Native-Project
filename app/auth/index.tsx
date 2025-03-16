@@ -1,19 +1,22 @@
-import {StyleSheet, Text, View} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PrevButton from "@/components/button/PrevButton";
 import FixedButton from "@/components/button/FixedButton";
-import {Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 function AuthScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <PrevButton />
       <View style={styles.logo}>
-        <Ionicons name="logo-apple" size={60} color="black"  />
+        <Ionicons name="logo-apple" size={60} color="black" />
       </View>
       <View style={styles.buttonContainer}>
-        <FixedButton label='계속하기' onPress={() => router.push("/auth/signup/SignUpSecondStep")} />
+        <FixedButton
+          label="계속하기"
+          onPress={() => router.push("/auth/signup/signupFirstStep")}
+        />
       </View>
     </SafeAreaView>
   );

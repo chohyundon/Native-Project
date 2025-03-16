@@ -6,13 +6,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import EmailInput from "@/components/Input/EmailInput";
 import PasswordInput from "@/components/Input/PasswordInput";
 import PasswordConfirmInput from "@/components/Input/PasswordConfirmInput";
-import {useUserData} from "@/store/signUpStore";
+import { useUserData } from "@/store/signUpStore";
 
 interface FormValuesProps {
   email: string;
   password: string;
   passwordConfirm?: string;
-  name?: string;
 }
 
 function SignUpFirstStep() {
@@ -24,13 +23,13 @@ function SignUpFirstStep() {
     },
   });
 
-  const SignUpData = useUserData((state) => state.updateUserData)
+  const SignUpData = useUserData((state) => state.updateUserData);
 
   const handleNextStep = (formValues: FormValuesProps) => {
-    const {passwordConfirm, ...filterData} = formValues;
-    SignUpData(filterData)
-    if(filterData) {
-      router.push('/auth/signup/SignUpSecondStep')
+    const { passwordConfirm, ...filterData } = formValues;
+    SignUpData(filterData);
+    if (filterData) {
+      router.push("/auth/signup/signUpSecondStep");
     }
   };
 
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
-    flex:1,
+    flex: 1,
   },
 
   buttonContainer: {

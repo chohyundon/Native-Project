@@ -8,13 +8,19 @@ interface useUserDataProps {
   updateUserData: (data: SingUpUserDataTypes) => void;
 }
 
+const initialUserData = {
+  email: "",
+  password: "",
+  name: "",
+  nickname: '',
+  residentFirst: '',
+  residentLast: '',
+}
+
 export const useUserData = create<useUserDataProps>()(
   persist(
     (set) => ({
-      userData: {
-        email: "",
-        password: "",
-      },
+      userData: initialUserData,
 
       updateUserData: (data) => {
         set((state) => ({
@@ -24,6 +30,12 @@ export const useUserData = create<useUserDataProps>()(
           },
         }));
       },
+
+      resetUserData: () => {
+        set(() => ({
+          userData: initialUserData,
+        }))
+      }
     }),
     {
       name: "user-data",

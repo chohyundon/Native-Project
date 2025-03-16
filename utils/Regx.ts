@@ -3,5 +3,6 @@ const passwordRegx = /^(?=.*[\W_])\S{6,15}$/
 const nameRegx = /^[가-힣]{2,6}$/
 const residentNumber = /^\d{6}$/
 const lastResidentNumber = /^\d$/;
+const nickname = /^[가-힣a-zA-Z]{2,6}$/
 
-export  {emailRegx, passwordRegx, nameRegx, residentNumber, lastResidentNumber}
+export  {emailRegx, passwordRegx, nameRegx, residentNumber, lastResidentNumber, nickname}

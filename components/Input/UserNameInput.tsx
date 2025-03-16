@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 import { Controller, useFormContext } from "react-hook-form";
 import CustomTextInput from "@/components/Input/CustomInput";
 import {nameRegx} from "@/utils/Regx";
+import {getUserName} from "@/api/getDoc";
 
 function UserNameInput() {
   const { control, setFocus } = useFormContext();
@@ -12,9 +13,14 @@ function UserNameInput() {
       control={control}
       rules={{
         required: '이름을 입력해주세요',
-        validate: (data) => {
+        validate: async (data) => {
           if(!nameRegx.test(data)) {
             return '이름을 다시 입력해주세요'
+          }
+
+          const userName = await getUserName()
+          if(userName.includes(data)) {
+            return '이미 가입한 이메일이 있습니다'
           }
         }
       }}
@@ -27,7 +33,7 @@ function UserNameInput() {
           submitBehavior="submit"
           placeholder="이름을 입력해주세요"
           error={error?.message}
-          onSubmitEditing={() => setFocus('residentFirst')}
+          onSubmitEditing={() => setFocus('nickname')}
         />
       )}
     />

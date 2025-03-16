@@ -1,14 +1,17 @@
-import { StyleSheet, Text, View } from "react-native";
+import {Alert, StyleSheet, Text, View} from "react-native";
 import { FormProvider, useForm, Controller } from "react-hook-form";
 import UserNameInput from "@/components/Input/UserNameInput";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FixedButton from "@/components/button/FixedButton";
 import ResidentInput from "@/components/Input/ResidentInput";
 import LastResidentNumber from "@/components/Input/ResidentLastInput";
-import { lastResidentNumber, residentNumber } from "@/utils/Regx";
+import NickNameInput from "@/components/Input/NickNameInput";
+import {router} from "expo-router";
+import {useUserData} from "@/store/signUpStore";
 
 interface FormValuesProps {
   name: string;
+  nickname: string;
   residentFirst: string;
   residentLast: string;
 }
@@ -19,11 +22,19 @@ function SignUpSecondStep() {
       name: "",
       residentFirst: "",
       residentLast: "",
+      nickname: "",
     },
   });
 
+  const lastSignUpData = useUserData((state) => state.updateUserData)
+
   const onPress = (formValues: FormValuesProps) => {
-    console.log("폼 데이터:", formValues);
+    console.log(formValues)
+    // @ts-ignore
+    lastSignUpData(formValues);
+    if(formValues) {
+      router.push('/auth/signup/signUpFinish')
+    }
   };
 
   return (
@@ -31,6 +42,7 @@ function SignUpSecondStep() {
       <SafeAreaView style={styles.container}>
         <View style={styles.inputContainer}>
           <UserNameInput />
+          <NickNameInput />
           <View style={styles.residentContainer}>
             <Text style={styles.title}>생년월일</Text>
             <View style={styles.resident}>
