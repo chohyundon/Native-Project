@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, View} from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FixedButton from "@/components/button/FixedButton";
@@ -7,6 +7,7 @@ import LoginInput from "@/components/Input/LoginInput";
 import LoginPasswordInput from "@/components/Input/LoginPasswordInput";
 import CustomButton from "@/components/button/CustomButton";
 import { matchUser } from "@/api/getDoc";
+import { useUserData } from "@/store/signUpStore";
 
 interface formValueProps {
   id: string;
@@ -21,26 +22,35 @@ function AuthScreen() {
     },
   });
 
+  const updateUserStatusData = useUserData((state) => state.updateUserData);
+
   const handleLogin = async (formValues: formValueProps) => {
     try {
       const data = await matchUser(formValues.id);
 
       if (data.length === 0) {
-        Alert.alert('알림', '로그인을 진행해주세요');
+        Alert.alert("알림", "로그인을 진행해주세요");
         return;
       }
 
       const user = data[0];
-      if (user.email && formValues.id && user.password === formValues.loginPassword) {
-        Alert.alert('알림', '로그인을 성공했습니다', [{
-          text: '확인',
-          onPress: () => {
-            router.push("/");
-          }
-        }]);
+      if (
+        user.email &&
+        formValues.id &&
+        user.password === formValues.loginPassword
+      ) {
+        Alert.alert("알림", "로그인을 성공했습니다", [
+          {
+            text: "확인",
+            onPress: () => {
+              updateUserStatusData(user);
+              router.push("/");
+            },
+          },
+        ]);
         // 로그인 성공 후 필요한 로직 추가
       } else {
-        Alert.alert('알림', '정보가 일치하지 않습니다');
+        Alert.alert("알림", "정보가 일치하지 않습니다");
       }
     } catch (error) {
       console.error("로그인 오류:", error);

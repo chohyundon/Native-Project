@@ -6,6 +6,7 @@ import { SingUpUserDataTypes } from "@/types/singUpUserDataTypes";
 interface useUserDataProps {
   userData: SingUpUserDataTypes;
   updateUserData: (data: SingUpUserDataTypes) => void;
+  resetUserData: () => void
 }
 
 const initialUserData = {
