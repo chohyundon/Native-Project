@@ -23,10 +23,6 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "fonts": {
-      "Roboto-Regular": "./fonts/Roboto-Regular.ttf",
-      "Rowdies-Regular": "./fonts/Rowdies-Regular.ttf",
-    },
     "plugins": [
       "expo-router",
       [

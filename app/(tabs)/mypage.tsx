@@ -24,7 +24,9 @@ function MyPage() {
           />
         </View>
         <View style={styles.userNameContainer}>
-          <Text style={styles.userTitle}>{userName}</Text>
+          <Text style={styles.userTitle}>
+            {userName ? userName : "로그인을 진행해주세요"}
+          </Text>
           <Text style={styles.userMoreInfo}>기본 정보 보기</Text>
         </View>
         <Pressable style={styles.buttonContainer}>
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
   userMoreInfo: {
     fontSize: 14,
     color: "#424242",
+    fontFamily: "Pretendard",
   },
 
   iconContainer: {
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    flex:1,
+    flex: 1,
     alignItems: "flex-end",
   },
 });
