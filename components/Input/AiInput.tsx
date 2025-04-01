@@ -12,6 +12,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from "@/constants/Colors";
+import { handleClick } from "@/api/Ai";
 
 function AiInput() {
   const { control } = useFormContext();
@@ -29,17 +30,19 @@ function AiInput() {
             name="Ai"
             control={control}
             render={({ field: { value, onChange } }) => (
-              <TextInput
-                placeholder="Feel free to ask to AI"
-                style={[{marginBottom: inset.bottom}, styles.input]}
-                value={value}
-                onChangeText={onChange}
-              />
+              <>
+                <TextInput
+                  placeholder="Feel free to ask AI"
+                  style={[{ marginBottom: inset.bottom }, styles.input]}
+                  value={value}
+                  onChangeText={onChange}
+                />
+                <Pressable onPress={() => handleClick(value)} style={styles.icons}>
+                  <Ionicons name="send" size={24} color="black" />
+                </Pressable>
+              </>
             )}
           />
-          <Pressable style={styles.icons}>
-            <Ionicons name="send" size={24} color="black" />
-          </Pressable>
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
