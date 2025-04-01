@@ -10,8 +10,6 @@ function MyPage() {
   const genderData =
     typeof userData?.residentLast === "number" ? userData.residentLast : 0;
 
-  console.log(userData);
-
   return (
     <SafeAreaView style={styles.myPageContainer}>
       <View style={styles.userContainer}>
