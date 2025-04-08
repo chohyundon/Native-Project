@@ -1,16 +1,9 @@
-import {
-  KeyboardAvoidingView,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { FormProvider, useForm } from "react-hook-form";
 import AiInput from "@/components/Input/AiInput";
 import { Colors } from "@/constants/Colors";
 import { useAiChatData } from "@/store/signUpStore";
-import React, { useEffect } from "react";
+import React from "react";
 
 function AiScreen() {
   const signUpForm = useForm({ defaultValues: { value: "" } });

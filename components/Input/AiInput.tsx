@@ -11,6 +11,7 @@ import {
   Button,
   Pressable,
   Text,
+  Alert,
 } from "react-native";
 import { Controller, useFormContext } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -25,6 +26,11 @@ function AiInput() {
   const aiChatInput = useAiChatData((state: any) => state.updateAiChatData);
 
   const sendAiChatData = (value: any) => {
+    if (value === undefined) {
+      Alert.alert("Please enter a message");
+      return;
+    }
+
     aiChatInput({ userInput: value });
     handleClick(value, aiChatInput);
   };
