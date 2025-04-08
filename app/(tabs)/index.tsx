@@ -4,17 +4,17 @@ import { useUserData } from "@/store/signUpStore";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 function HomeScreen() {
-  const resetUserStatus = useUserData((state) => state.resetUserData)
+  const resetUserStatus = useUserData((state) => state.resetUserData);
   const userData = useUserData((state) => state.userData);
 
   const loginStatusHandle = async () => {
-    if(userData?.email) {
-      resetUserStatus()
+    if (userData?.email) {
+      resetUserStatus();
       return;
     } else {
       router.push("/auth");
     }
-  }
+  };
 
   return (
     <SafeAreaView>

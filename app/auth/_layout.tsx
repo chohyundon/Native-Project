@@ -1,10 +1,10 @@
-import {StyleSheet, View} from 'react-native';
-import {Stack} from "expo-router";
+import { StyleSheet, View } from "react-native";
+import { Stack } from "expo-router";
 
 function AuthLayout() {
   return (
-    <Stack screenOptions={{headerShown: false}}>
-      <Stack.Screen name='signup'/>
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="signup" />
     </Stack>
   );
 }

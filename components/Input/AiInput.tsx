@@ -1,3 +1,4 @@
+import React from "react";
 import {
   StyleSheet,
   TextInput,
@@ -6,45 +7,56 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  ScrollView, Button, Pressable, Text,
+  ScrollView,
+  Button,
+  Pressable,
+  Text,
 } from "react-native";
 import { Controller, useFormContext } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "@/constants/Colors";
 import { handleClick } from "@/api/Ai";
+import { useAiChatData } from "@/store/signUpStore";
 
 function AiInput() {
   const { control } = useFormContext();
-  const inset = useSafeAreaInsets()
+  const inset = useSafeAreaInsets();
+  const aiChatInput = useAiChatData((state: any) => state.updateAiChatData);
+
+  const sendAiChatData = (value: any) => {
+    aiChatInput({ userInput: value });
+    handleClick(value, aiChatInput);
+  };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView contentContainerStyle={styles.inner}>
-          <Controller
-            name="Ai"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <>
-                <TextInput
-                  placeholder="Feel free to ask AI"
-                  style={[{ marginBottom: inset.bottom }, styles.input]}
-                  value={value}
-                  onChangeText={onChange}
-                />
-                <Pressable onPress={() => handleClick(value)} style={styles.icons}>
-                  <Ionicons name="send" size={24} color="black" />
-                </Pressable>
-              </>
-            )}
-          />
-        </ScrollView>
-      </TouchableWithoutFeedback>
+      <View style={[styles.inner, { flexGrow: 1 }]}>
+        <Controller
+          name="Ai"
+          control={control}
+          render={({ field: { value, onChange } }) => (
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="Feel free to ask AI"
+                style={[{ marginBottom: inset.bottom }, styles.input]}
+                value={value}
+                onChangeText={onChange}
+              />
+              <Pressable
+                onPress={() => sendAiChatData(value)}
+                style={styles.icons}
+              >
+                <Ionicons name="send" size={24} color="black" />
+              </Pressable>
+            </View>
+          )}
+        />
+      </View>
     </KeyboardAvoidingView>
   );
 }
@@ -61,8 +73,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    gap: 20,
+  },
+
   input: {
-    width: "88%",
+    flex: 1,
     borderRadius: 6,
     paddingVertical: 12,
     paddingHorizontal: 10,
@@ -72,7 +90,6 @@ const styles = StyleSheet.create({
 
   icons: {
     paddingVertical: 10,
-    paddingHorizontal: 12,
     color: Colors.lightGray,
   },
 });

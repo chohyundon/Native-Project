@@ -4,5 +4,5 @@ export interface SingUpUserDataTypes {
   name?: string;
   nickname?: string;
   residentFirst?: string;
-  residentLast?:string;
+  residentLast?: string;
 }
