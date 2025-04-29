@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, View } from "react-native";
 import { router } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 function PrevButton() {
   return (
@@ -8,7 +8,7 @@ function PrevButton() {
       onPress={() => router.back()}
       style={({ pressed }) => [pressed && styles.pressButton, styles.button]}
     >
-      <Ionicons name="arrow-back-outline" size={40} color="black" />
+      <Ionicons name="chevron-back" size={24} color="black" />
     </Pressable>
   );
 }
@@ -18,11 +18,8 @@ const styles = StyleSheet.create({
     opacity: 0.3,
   },
 
-
   button: {
-    width: 40,
-    height: 40,
-    paddingLeft: 0,
+    width: 30,
   },
 });
 

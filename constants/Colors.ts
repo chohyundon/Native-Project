@@ -5,6 +5,7 @@
 
 export const Colors = {
   primary: "#B8BEFA",
+  primarySecond: "#EBF0FA",
   secondary: "#FF8C94",
   background: "#FFFFFF",
   black: "#333333",
@@ -20,4 +21,5 @@ export const Colors = {
   purple40: "#6650A4",
   purpleGrey40: "#625B71",
   red: "#CE665E",
+  skeleton: "#E0E0E0",
 };

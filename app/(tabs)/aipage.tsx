@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     gap: 10,
+    backgroundColor: "white",
   },
 
   title: {

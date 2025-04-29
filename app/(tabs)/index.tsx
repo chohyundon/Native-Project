@@ -1,57 +1,35 @@
-import { StyleSheet, Text, View } from "react-native";
-import { router } from "expo-router";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { router, useRouter } from "expo-router";
 import { useUserData } from "@/store/signUpStore";
-import TinderCard from "react-tinder-card";
-
 import { SafeAreaView } from "react-native-safe-area-context";
+import TinderSwiper from "@/components/swiper/Tinder";
+import Swiper from "@/components/swiper/Swiper";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { Colors } from "@/constants/Colors";
-import { useEffect, useState } from "react";
-import { getAiSwiperData } from "../entities/getAiSwiperData";
+import { height, width } from "@/api/deviceSize";
 
 function HomeScreen() {
   const resetUserStatus = useUserData((state) => state.resetUserData);
   const userData = useUserData((state) => state.userData);
-  const [swiperData, setSwiperData] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [lastDirection, setLastDirection] = useState<string | undefined>();
+  const router = useRouter();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAiSwiperData();
-      setSwiperData(data);
-      setCurrentIndex(0);
-    };
-    fetchData();
-  }, []);
-
-  const onSwipe = (direction: string, item: string) => {
-    console.log(`Swiped ${direction} on ${item}`);
-    setLastDirection(direction);
-    setCurrentIndex((prev) => (prev + 1) % swiperData.length);
-  };
-
-  const outOfFrame = (item: string) => {
-    console.log(`${item} left the screen`);
+  const handleMoveForm = () => {
+    router.push("/form");
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.cardContainer}>
-        <Text style={styles.cardTitle}>Swiper Topics</Text>
-        <View style={styles.cardWrapper}>
-          {swiperData.map((item, index) => (
-            <TinderCard
-              key={index}
-              onSwipe={(dir) => onSwipe(dir, item)}
-              onCardLeftScreen={() => outOfFrame(item)}
-              preventSwipe={["up", "down"]}
-            >
-              <View style={styles.card}>
-                <Text style={styles.cardFont}>{swiperData[currentIndex]}</Text>
-              </View>
-            </TinderCard>
-          ))}
-        </View>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <Swiper />
+        <TinderSwiper />
+      </ScrollView>
+      <View style={styles.iconContainer}>
+        <Pressable onPress={handleMoveForm}>
+          <AntDesign name="form" size={30} color={"white"} />
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -60,42 +38,30 @@ function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
+    backgroundColor: "white",
   },
-  cardContainer: {
-    alignItems: "center",
+
+  scrollContent: {
+    paddingBottom: height * 0.2,
   },
-  cardWrapper: {
-    width: "100%",
-    height: "100%",
-    overflow: "hidden",
-    position: "relative",
-  },
-  cardTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-    alignSelf: "flex-start",
-  },
-  card: {
+
+  iconContainer: {
     position: "absolute",
-    maxWidth: 300,
-    height: 350,
-    width: "100%",
-    justifyContent: "center",
-    borderRadius: 20,
-    shadowColor: "white",
-    shadowOpacity: 0.2,
-    shadowRadius: 20,
+    bottom: 10,
+    right: 30,
+    width: 50,
+    height: 50,
     backgroundColor: Colors.primary,
+    justifyContent: "center",
     alignItems: "center",
-  },
-  cardFont: {
-    fontSize: 20,
-    fontWeight: "bold",
-    width: "100%",
-    textAlign: "center",
-    paddingHorizontal: 10,
+    borderRadius: 15,
+    shadowColor: "black",
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 1,
+      height: 2.5,
+    },
   },
 });
 

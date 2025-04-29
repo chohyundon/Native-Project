@@ -1,15 +1,9 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from "react-native";
 
 function NotFound() {
-  return (
-    <View>
-      
-    </View>
-  );
+  return <View></View>;
 }
 
-const styles = StyleSheet.create({
- 
-});
+const styles = StyleSheet.create({});
 
 export default NotFound;
