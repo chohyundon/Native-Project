@@ -3,38 +3,74 @@ import PrevButton from "@/components/button/PrevButton";
 import WriteTopicsForm from "@/components/Input/WriteTopics";
 import { Colors } from "@/constants/Colors";
 import { FormProvider, useForm } from "react-hook-form";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { CategoryList } from "../entities/Category";
+import { useState } from "react";
+import { Alert } from "react-native";
 
 function WriteTopicsFormMain() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
   const signUpForm = useForm({
+    mode: "onSubmit",
     defaultValues: {
-      textValue: "",
+      topics: "",
     },
   });
 
+  const onValid = (formValues: any) => {
+    console.log("✅ 제출 성공:", formValues);
+  };
+
+  const onInvalid = (errors: any) => {
+    console.log("❌ 유효성 실패:", errors);
+    if (errors.topics?.message) {
+      Alert.alert("입력 오류", errors.topics.message);
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.button}>
           <PrevButton />
         </View>
-        <View style={styles.cardWrapper}>
-          <FormProvider {...signUpForm}>
+        <FormProvider {...signUpForm}>
+          <View style={styles.cardWrapper}>
             <WriteTopicsForm />
-          </FormProvider>
-        </View>
-        <View>
+          </View>
           <Text style={styles.title}>Category</Text>
           <View style={styles.categoryContainer}>
             {CategoryList.map((list, index) => (
-              <View key={index}>
-                <Text style={styles.category}>{list}</Text>
-              </View>
+              <Pressable
+                style={[
+                  styles.category,
+                  selectedCategory === list && styles.categoryButtonPressed,
+                ]}
+                onPress={() => setSelectedCategory(list)}
+                key={index}
+              >
+                <Text>{list}</Text>
+              </Pressable>
             ))}
           </View>
-        </View>
-      </View>
+          <Pressable
+            onPress={signUpForm.handleSubmit(onValid, onInvalid)}
+            style={({ pressed }) => [
+              styles.completeButton,
+              pressed && styles.pressedButton,
+            ]}
+          >
+            <Text style={styles.buttonFont}>Complete</Text>
+          </Pressable>
+        </FormProvider>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -75,11 +111,37 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 
+  categoryButtonPressed: {
+    backgroundColor: Colors.primary,
+  },
+
   category: {
     padding: 9,
     borderRadius: 10,
     backgroundColor: Colors.primarySecond,
     fontSize: 15,
+  },
+
+  completeButton: {
+    marginTop: height * 0.1,
+    width: "60%",
+    alignSelf: "center",
+  },
+
+  pressedButton: {
+    opacity: 0.6,
+  },
+
+  buttonFont: {
+    borderRadius: 20,
+    backgroundColor: Colors.primary,
+    width: "100%",
+    height: height * 0.045,
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+    paddingTop: 8,
   },
 });
 

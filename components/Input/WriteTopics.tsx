@@ -1,8 +1,10 @@
+import { topicsRegx } from "@/utils/Regx";
+import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { StyleSheet, TextInput } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
 function WriteTopicsForm() {
-  const { control, setFocus } = useFormContext();
+  const { control } = useFormContext();
 
   return (
     <Controller
@@ -10,18 +12,28 @@ function WriteTopicsForm() {
       control={control}
       rules={{
         required: "토픽 주제를 입력해주세요!",
+        validate: (data) => {
+          if (!topicsRegx.test(data)) {
+            return "토픽 주제를 다시 입력해주세요!";
+          }
+          return true;
+        },
       }}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <TextInput
-          maxLength={100}
-          autoFocus
-          onChangeText={onChange}
-          value={value}
-          placeholder="토픽 주제를 입력해주세요."
-          style={styles.input}
-          multiline={true}
-        />
-      )}
+      render={({ field: { onChange, value }, fieldState: { error } }) => {
+        return (
+          <View>
+            <TextInput
+              maxLength={100}
+              autoFocus
+              onChangeText={onChange}
+              value={value}
+              placeholder="토픽 주제를 입력해주세요."
+              style={styles.input}
+              multiline={true}
+            />
+          </View>
+        );
+      }}
     />
   );
 }
@@ -32,6 +44,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+
+  errorFont: {},
 });
 
 export default WriteTopicsForm;

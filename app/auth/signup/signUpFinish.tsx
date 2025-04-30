@@ -11,8 +11,6 @@ function SignUpFinish() {
   const resetData = useUserData((state: any) => state.resetUserData);
   const createdAt = createAt;
 
-
-
   const handlePress = async () => {
     try {
       const userInfoData: any = {

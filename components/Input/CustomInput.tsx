@@ -18,7 +18,6 @@ function CustomTextInput(
   { label, placeholder, size = "large", error, ...props }: InputFieldProps,
   ref: ForwardedRef<TextInput>
 ) {
-
   return (
     <View style={styles.inputContainer}>
       {label && <Text style={[styles.title]}>{label}</Text>}
