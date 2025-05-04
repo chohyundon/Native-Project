@@ -12,7 +12,7 @@ interface userData {
 
 interface topicData {
   topic: string;
-  category: string;
+  category: string | null;
   createdAt: string;
 }
 

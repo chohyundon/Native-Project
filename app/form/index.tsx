@@ -15,8 +15,8 @@ import { CategoryList } from "../entities/Category";
 import { useState } from "react";
 import { Alert } from "react-native";
 import uuid from "react-native-uuid";
-import { getTopics } from "@/api/getDoc";
 import { saveTopicsData } from "@/api/setDoc";
+import { FormValid, isDuplicated } from "./formValid";
 
 function WriteTopicsFormMain() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -29,32 +29,20 @@ function WriteTopicsFormMain() {
   });
 
   const onValid = async (formValues: any) => {
+    const inputTopic = formValues.topics?.trim();
+    const randomID = uuid.v4().toString();
+
+    FormValid(formValues.topics, selectedCategory);
+
     try {
-      const inputTopic = formValues.topics?.trim();
-      const getData = await getTopics();
-      const topics = getData.map((item) => item.topic);
-      const randomID = uuid.v4().toString();
-
-      if (!selectedCategory) {
-        Alert.alert("경고", "카테고리를 선택해주세요!");
-        return;
-      }
-
-      if (!inputTopic) {
-        Alert.alert("입력 오류", "토픽을 입력해주세요.");
-        return;
-      }
-
-      if (topics.includes(inputTopic)) {
-        Alert.alert("경고", "이미 같은 토픽 주제가 있습니다!");
-        return;
-      }
+      if (await isDuplicated(inputTopic))
+        return Alert.alert("경고", "이미 존재하는 토픽 주제입니다!");
 
       await saveTopicsData(
         {
           topic: inputTopic,
           category: selectedCategory,
-          createdAt: new Date().toString(),
+          createdAt: new Date().toISOString(),
         },
         randomID.toString()
       );
@@ -71,6 +59,7 @@ function WriteTopicsFormMain() {
       Alert.alert("입력 오류", errors.topics.message);
     }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView style={styles.container}>
