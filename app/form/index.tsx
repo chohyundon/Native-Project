@@ -16,7 +16,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import uuid from "react-native-uuid";
 import { saveTopicsData } from "@/api/setDoc";
-import { FormValid, isDuplicated } from "./formValid";
+import { FormValid, isDuplicated } from "../../utils/formValid";
 import { createAt } from "@/utils/today";
 
 function WriteTopicsFormMain() {
