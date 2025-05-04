@@ -17,6 +17,7 @@ import { Alert } from "react-native";
 import uuid from "react-native-uuid";
 import { saveTopicsData } from "@/api/setDoc";
 import { FormValid, isDuplicated } from "./formValid";
+import { createAt } from "@/utils/today";
 
 function WriteTopicsFormMain() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -42,7 +43,7 @@ function WriteTopicsFormMain() {
         {
           topic: inputTopic,
           category: selectedCategory,
-          createdAt: new Date().toISOString(),
+          createdAt: createAt,
         },
         randomID.toString()
       );
