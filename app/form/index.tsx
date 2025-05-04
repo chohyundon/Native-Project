@@ -29,8 +29,6 @@ function WriteTopicsFormMain() {
     },
   });
 
-  console.log(selectedCategory);
-
   const onValid = async (formValues: any) => {
     console.log("✅ 제출 성공:", formValues);
     if (selectedCategory !== null) {

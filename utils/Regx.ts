@@ -4,7 +4,7 @@ const nameRegx = /^[가-힣]{2,6}$/;
 const residentNumber = /^\d{6}$/;
 const lastResidentNumber = /^\d$/;
 const nickname = /^[가-힣a-zA-Z]{2,6}$/;
-const topicsRegx = /^[가-힣a-zA-Z][가-힣a-zA-Z0-9]*$/;
+const topicsRegx = /^[가-힣a-zA-Z].*$/;
 
 export {
   emailRegx,

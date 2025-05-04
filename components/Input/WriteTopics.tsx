@@ -12,6 +12,7 @@ function WriteTopicsForm() {
       control={control}
       rules={{
         required: "토픽 주제를 입력해주세요!",
+        maxLength: { value: 100, message: "100자 이하로 입력해주세요" },
         validate: (data) => {
           if (!topicsRegx.test(data)) {
             return "토픽 주제를 다시 입력해주세요!";
