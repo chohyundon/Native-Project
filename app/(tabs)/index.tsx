@@ -1,4 +1,11 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { router, useRouter } from "expo-router";
 import { useUserData } from "@/store/signUpStore";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,10 +18,20 @@ import { height, width } from "@/api/deviceSize";
 function HomeScreen() {
   const resetUserStatus = useUserData((state) => state.resetUserData);
   const userData = useUserData((state) => state.userData);
+
   const router = useRouter();
 
   const handleMoveForm = () => {
-    router.push("/form");
+    if (userData.email.trim() === "") {
+      Alert.alert("경고", "로그인을 진행해주세요", [
+        {
+          text: "확인",
+          onPress: () => router.push("/auth"),
+        },
+      ]);
+    } else {
+      router.push("/form");
+    }
   };
 
   return (

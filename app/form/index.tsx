@@ -14,9 +14,13 @@ import {
 import { CategoryList } from "../entities/Category";
 import { useState } from "react";
 import { Alert } from "react-native";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/api/firebaseConfig";
+import uuid from "react-native-uuid";
 
 function WriteTopicsFormMain() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const randomID = uuid.v4();
 
   const signUpForm = useForm({
     mode: "onSubmit",
@@ -25,12 +29,22 @@ function WriteTopicsFormMain() {
     },
   });
 
-  const onValid = (formValues: any) => {
+  console.log(selectedCategory);
+
+  const onValid = async (formValues: any) => {
     console.log("✅ 제출 성공:", formValues);
+    if (selectedCategory !== null) {
+      await setDoc(doc(db, "topics", randomID), {
+        topic: formValues,
+        category: selectedCategory,
+        createdAt: new Date(),
+      });
+    } else {
+      Alert.alert("경고", "카테고리를 선택해주세요!");
+    }
   };
 
   const onInvalid = (errors: any) => {
-    console.log("❌ 유효성 실패:", errors);
     if (errors.topics?.message) {
       Alert.alert("입력 오류", errors.topics.message);
     }

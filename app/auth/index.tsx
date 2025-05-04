@@ -71,7 +71,7 @@ function AuthScreen() {
         </View>
         <View style={styles.buttonContainer}>
           <FixedButton
-            label="계속하기"
+            label="회원가입"
             onPress={() => router.push("/auth/signup/signupFirstStep")}
           />
         </View>

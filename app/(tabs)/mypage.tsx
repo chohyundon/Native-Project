@@ -6,9 +6,18 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 function MyPage() {
   const userData = useUserData((state) => state.userData);
+  const resetUserData = useUserData((state) => state.resetUserData);
   const userName = userData?.nickname;
   const genderData =
     typeof userData?.residentLast === "number" ? userData.residentLast : 0;
+
+  const changeLoginStatus = () => {
+    if (userName) {
+      return;
+    } else {
+      resetUserData();
+    }
+  };
 
   return (
     <SafeAreaView style={styles.myPageContainer}>
@@ -27,7 +36,7 @@ function MyPage() {
           </Text>
           <Text style={styles.userMoreInfo}>기본 정보 보기</Text>
         </View>
-        <Pressable style={styles.buttonContainer}>
+        <Pressable style={styles.buttonContainer} onPress={changeLoginStatus}>
           <MaterialIcons name="navigate-next" size={24} color="black" />
         </Pressable>
       </View>
