@@ -18,7 +18,15 @@ export const getUserName = async () => {
 };
 
 export const matchUser = async (value: string) => {
-  const data = query(collection(db, "users"), where("userInfo.email", "==", value));
+  const data = query(
+    collection(db, "users"),
+    where("userInfo.email", "==", value)
+  );
   const querySnapshot = await getDocs(data);
-  return querySnapshot.docs.map((doc) => doc.data().userInfo)
+  return querySnapshot.docs.map((doc) => doc.data().userInfo);
+};
+
+export const getTopics = async () => {
+  const data = await getDocs(collection(db, "topics"));
+  return data.docs.map((doc) => doc.data().topicInfo);
 };
