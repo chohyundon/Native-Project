@@ -44,6 +44,7 @@ function WriteTopicsFormMain() {
           topic: inputTopic,
           category: selectedCategory,
           createdAt: createAt,
+          id: randomID.toString(),
         },
         randomID.toString()
       );
