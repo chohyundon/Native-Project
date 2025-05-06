@@ -2,9 +2,11 @@ import { height, width } from "@/api/deviceSize";
 import { getTopics } from "@/api/getDoc";
 import { Colors } from "@/constants/Colors";
 import { createAt } from "@/utils/today";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import PagerView from "react-native-pager-view";
+// import PagerView from "react-native-pager-view"; -> 이거 key를 줘도 안되는데 이유를 ... 모르겠다
+import Swiper from "react-native-swiper";
 
 interface DataTypes {
   category: string;
@@ -17,6 +19,7 @@ function SwiperCategory() {
   const [selectedCategory, setSelectedCategory] = useState("Today");
   const categoryList = ["Today", "Latest", "Recommended"];
   const [data, setData] = useState<DataTypes[]>();
+  const router = useRouter();
 
   useEffect(() => {
     handleCategoryPress("Today");
@@ -36,6 +39,10 @@ function SwiperCategory() {
     setSelectedCategory(category);
   };
 
+  const moveTopicDetail = () => {
+    router.push("/swiper/swiperDetail");
+  };
+
   return (
     <View>
       <View style={styles.categoryList}>
@@ -52,23 +59,25 @@ function SwiperCategory() {
           </Pressable>
         ))}
       </View>
-      <PagerView style={styles.swiper}>
+      <View style={styles.swiper}>
         {data?.length ? (
-          data.map((item, index) => (
-            <View
-              // key={item.id}
-              style={[styles.swiperList, { width: "100%", height: "100%" }]}
-              collapsable={false}
-            >
-              <Text style={styles.cardFont}>{item.topic}</Text>
-            </View>
-          ))
+          <Swiper showsPagination={false} loop={true}>
+            {data?.map((item) => (
+              <Pressable
+                onPress={moveTopicDetail}
+                key={item.id}
+                style={styles.swiperList}
+              >
+                <Text style={styles.cardFont}>{item.topic}</Text>
+              </Pressable>
+            ))}
+          </Swiper>
         ) : (
           <View style={styles.swiperSkeleton}>
             <Text style={styles.cardFont}>데이터가 없습니다</Text>
           </View>
         )}
-      </PagerView>
+      </View>
     </View>
   );
 }
@@ -89,6 +98,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
 
+  swiperList: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+  },
+
   swiper: {
     marginTop: 10,
     alignItems: "center",
@@ -96,12 +111,6 @@ const styles = StyleSheet.create({
     height: height * 0.45,
     backgroundColor: Colors.primary,
     borderRadius: 20,
-  },
-
-  swiperList: {
-    justifyContent: "center",
-    width: "100%",
-    height: "100%",
   },
 
   swiperSkeleton: {

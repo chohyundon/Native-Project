@@ -10,10 +10,9 @@ import { router, useRouter } from "expo-router";
 import { useUserData } from "@/store/signUpStore";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TinderSwiper from "@/components/swiper/Tinder";
-import Swiper from "@/components/swiper/Swiper";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Colors } from "@/constants/Colors";
-import { height, width } from "@/api/deviceSize";
+import Swiper from "@/app/swiper/Index";
 
 function HomeScreen() {
   const resetUserStatus = useUserData((state) => state.resetUserData);
@@ -51,6 +50,7 @@ function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingHorizontal: 20,
     backgroundColor: "white",
   },
