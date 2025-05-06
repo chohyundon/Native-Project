@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import SwiperCategory from "@/app/swiper/SwiperCategory";
+import SwiperCategory from "./swiperCategory";
 
 function Swiper() {
   const [apiData, setApiData] = useState();

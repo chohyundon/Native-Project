@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import TinderSwiper from "@/components/swiper/Tinder";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Colors } from "@/constants/Colors";
-import Swiper from "@/app/swiper/Index";
+import Swiper from "@/app/swiper/index";
 
 function HomeScreen() {
   const resetUserStatus = useUserData((state) => state.resetUserData);

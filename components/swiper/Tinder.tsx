@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import { router } from "expo-router";
 import { useUserData } from "@/store/signUpStore";
-import TinderCard from "react-tinder-card";
 import { Colors } from "@/constants/Colors";
 import { Suspense, useEffect, useState } from "react";
 import { getAiSwiperData } from "@/app/entities/getAiSwiperData";
 import TinderSkeleton from "./TinderSkeleton";
 import { height, width } from "@/api/deviceSize";
+import Swiper from "react-native-swiper";
 
 function TinderSwiper() {
   const resetUserStatus = useUserData((state) => state.resetUserData);
@@ -42,16 +42,11 @@ function TinderSwiper() {
       ) : (
         <View style={styles.cardWrapper}>
           {swiperData.length > 0 && (
-            <TinderCard
-              key={`${swiperData[currentIndex]}-${currentIndex}`}
-              onSwipe={(dir) => onSwipe(dir, swiperData[currentIndex])}
-              onCardLeftScreen={() => outOfFrame(swiperData[currentIndex])}
-              preventSwipe={["up", "down"]}
-            >
+            <Swiper showsPagination={false} loop={true}>
               <View style={styles.card}>
                 <Text style={styles.cardFont}>{swiperData[currentIndex]}</Text>
               </View>
-            </TinderCard>
+            </Swiper>
           )}
         </View>
       )}

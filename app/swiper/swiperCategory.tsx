@@ -40,7 +40,7 @@ function SwiperCategory() {
   };
 
   const moveTopicDetail = () => {
-    router.push("/swiper/swiperDetail");
+    router.push("./swiperDetail");
   };
 
   return (

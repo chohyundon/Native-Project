@@ -30,6 +30,7 @@ export default function RootLayout() {
       <Stack.Screen name="+not-found" />
       <Stack.Screen name="auth" options={{ headerShown: false }} />
       <Stack.Screen name="form" options={{ headerShown: false }} />
+      <Stack.Screen name="swiper" options={{ headerShown: false }} />
     </Stack>
   );
 }
