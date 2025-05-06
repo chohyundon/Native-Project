@@ -6,7 +6,7 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 // import PagerView from "react-native-pager-view"; -> 이거 key를 줘도 안되는데 이유를 ... 모르겠다
-import Swiper from "react-native-swiper";
+import Carousel from "react-native-reanimated-carousel";
 
 interface DataTypes {
   category: string;
@@ -18,7 +18,7 @@ interface DataTypes {
 function SwiperCategory() {
   const [selectedCategory, setSelectedCategory] = useState("Today");
   const categoryList = ["Today", "Latest", "Recommended"];
-  const [data, setData] = useState<DataTypes[]>();
+  const [data, setData] = useState<DataTypes[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -60,18 +60,20 @@ function SwiperCategory() {
         ))}
       </View>
       <View style={styles.swiper}>
-        {data?.length ? (
-          <Swiper showsPagination={false} loop={true}>
-            {data?.map((item) => (
-              <Pressable
-                onPress={moveTopicDetail}
-                key={item.id}
-                style={styles.swiperList}
-              >
-                <Text style={styles.cardFont}>{item.topic}</Text>
-              </Pressable>
-            ))}
-          </Swiper>
+        {data?.length > 0 ? (
+          <Carousel
+            loop={true}
+            data={data}
+            width={width - 80}
+            height={height * 0.45}
+            renderItem={({ item }) => (
+              <View style={styles.swiperList}>
+                <Pressable onPress={moveTopicDetail} style={styles.cardButton}>
+                  <Text style={styles.cardFont}>{item.topic}</Text>
+                </Pressable>
+              </View>
+            )}
+          />
         ) : (
           <View style={styles.swiperSkeleton}>
             <Text style={styles.cardFont}>데이터가 없습니다</Text>
@@ -102,6 +104,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "center",
+  },
+
+  cardButton: {
+    backgroundColor: Colors.primary,
   },
 
   swiper: {

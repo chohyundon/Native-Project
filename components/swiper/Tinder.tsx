@@ -6,33 +6,22 @@ import { Suspense, useEffect, useState } from "react";
 import { getAiSwiperData } from "@/app/entities/getAiSwiperData";
 import TinderSkeleton from "./TinderSkeleton";
 import { height, width } from "@/api/deviceSize";
-import Swiper from "react-native-swiper";
+import Carousel from "react-native-reanimated-carousel";
 
 function TinderSwiper() {
   const resetUserStatus = useUserData((state) => state.resetUserData);
   const userData = useUserData((state) => state.userData);
   const [swiperData, setSwiperData] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAiSwiperData();
       setSwiperData(data);
-      setCurrentIndex(0);
       setIsLoading(false);
     };
     fetchData();
   }, []);
-
-  const onSwipe = (direction: string, item: string) => {
-    console.log(`Swiped ${direction} on ${item}`);
-    setCurrentIndex((prev) => (prev + 1) % swiperData.length);
-  };
-
-  const outOfFrame = (item: string) => {
-    console.log(`${item} left the screen`);
-  };
 
   return (
     <View style={styles.cardContainer}>
@@ -41,13 +30,27 @@ function TinderSwiper() {
         <TinderSkeleton />
       ) : (
         <View style={styles.cardWrapper}>
-          {swiperData.length > 0 && (
-            <Swiper showsPagination={false} loop={true}>
-              <View style={styles.card}>
-                <Text style={styles.cardFont}>{swiperData[currentIndex]}</Text>
-              </View>
-            </Swiper>
-          )}
+          <Carousel
+            {...{
+              loop: true,
+              width: width - 80,
+              height: height * 0.45,
+              data: swiperData,
+              mode: "horizontal-stack",
+              renderItem: ({ item }: { item: string }) => (
+                <View style={styles.card}>
+                  <Text style={styles.cardFont}>{item}</Text>
+                </View>
+              ),
+              modeConfig: {
+                snapDirection: "left",
+                moveSize: width - 80,
+                stackInterval: 30,
+                scaleInterval: 0.08,
+                rotateZDeg: 0,
+              },
+            }}
+          />
         </View>
       )}
     </View>
@@ -57,6 +60,7 @@ function TinderSwiper() {
 const styles = StyleSheet.create({
   cardContainer: {
     alignItems: "center",
+    height: height * 0.6,
   },
   cardWrapper: {
     width: width - 80,
@@ -71,7 +75,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   card: {
-    position: "absolute",
     maxWidth: 300,
     height: height * 0.45,
     width: "100%",
