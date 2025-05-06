@@ -36,10 +36,7 @@ function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Swiper />
         <TinderSwiper />
       </ScrollView>
@@ -54,13 +51,8 @@ function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingHorizontal: 20,
     backgroundColor: "white",
-  },
-
-  scrollContent: {
-    paddingBottom: height * 0.2,
   },
 
   iconContainer: {

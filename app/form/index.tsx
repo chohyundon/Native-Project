@@ -31,7 +31,7 @@ function WriteTopicsFormMain() {
 
   const onValid = async (formValues: any) => {
     const inputTopic = formValues.topics?.trim();
-    const randomID = uuid.v4().toString();
+    const randomID = Math.random().toString(36).substring(2, 12);
 
     FormValid(formValues.topics, selectedCategory);
 
@@ -44,7 +44,7 @@ function WriteTopicsFormMain() {
           topic: inputTopic,
           category: selectedCategory,
           createdAt: createAt,
-          id: randomID.toString(),
+          id: randomID,
         },
         randomID.toString()
       );

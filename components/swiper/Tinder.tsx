@@ -65,10 +65,11 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     width: width - 80,
-    minHeight: height * 0.7,
+    minHeight: height * 0.5,
     position: "relative",
   },
   cardTitle: {
+    marginTop: 20,
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,

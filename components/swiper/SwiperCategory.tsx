@@ -13,28 +13,28 @@ interface DataTypes {
   id: string;
 }
 
-function SwipertCategory() {
+function SwiperCategory() {
   const [selectedCategory, setSelectedCategory] = useState("Today");
   const categoryList = ["Today", "Latest", "Recommended"];
   const [data, setData] = useState<DataTypes[]>();
+
+  useEffect(() => {
+    handleCategoryPress("Today");
+  }, []);
 
   const handleCategoryPress = async (category: string) => {
     const getTopic = await getTopics();
     const todayDate = createAt;
 
-    //1. 카테고리 Today가 눌러졌을 떄, 생성된 날짜가 getTopics에 생성된 날짜와 같다면? 그 때 데이터를 보여줌
     if (category === "Today") {
       const filterTodayData = getTopic.filter(
         (item) => item.createdAt === todayDate
       );
-
       setData(filterTodayData);
     }
 
     setSelectedCategory(category);
   };
-
-  console.log(data);
 
   return (
     <View>
@@ -52,10 +52,14 @@ function SwipertCategory() {
           </Pressable>
         ))}
       </View>
-      <PagerView style={styles.swiper} initialPage={0}>
+      <PagerView style={styles.swiper}>
         {data?.length ? (
-          data?.map((item, index) => (
-            <View key={index} style={styles.swiperList}>
+          data.map((item, index) => (
+            <View
+              // key={item.id}
+              style={[styles.swiperList, { width: "100%", height: "100%" }]}
+              collapsable={false}
+            >
               <Text style={styles.cardFont}>{item.topic}</Text>
             </View>
           ))
@@ -73,7 +77,6 @@ const styles = StyleSheet.create({
   categoryList: {
     flexDirection: "row",
     gap: 10,
-    alignSelf: "flex-start",
   },
 
   category: {
@@ -90,13 +93,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
     width: width - 80,
-    minHeight: height * 0.45,
+    height: height * 0.45,
     backgroundColor: Colors.primary,
     borderRadius: 20,
   },
 
   swiperList: {
     justifyContent: "center",
+    width: "100%",
+    height: "100%",
   },
 
   swiperSkeleton: {
@@ -113,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SwipertCategory;
+export default SwiperCategory;
