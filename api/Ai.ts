@@ -25,3 +25,18 @@ export const handleClick = async (
     console.error("Error generating content:", error);
   }
 };
+
+export const translate = async (topicValue: string | string[]) => {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const prompt = `"${topicValue}"를 영어 단어로만 번역해줘. 다른 설명 없이 번역된 영어 단어만 출력해줘.`;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    return text;
+  } catch (e: any) {
+    throw Error(e);
+  }
+};

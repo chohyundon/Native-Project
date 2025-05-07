@@ -39,8 +39,13 @@ function SwiperCategory() {
     setSelectedCategory(category);
   };
 
-  const moveTopicDetail = () => {
-    router.push("./swiperDetail");
+  const moveTopicDetail = (topic: string) => {
+    console.log(topic);
+
+    router.push({
+      pathname: "/swiper/swiperDetail",
+      params: { topic },
+    });
   };
 
   return (
@@ -68,7 +73,10 @@ function SwiperCategory() {
             height={height * 0.45}
             renderItem={({ item }) => (
               <View style={styles.swiperList}>
-                <Pressable onPress={moveTopicDetail} style={styles.cardButton}>
+                <Pressable
+                  onPress={() => moveTopicDetail(item.topic)}
+                  style={styles.cardButton}
+                >
                   <Text style={styles.cardFont}>{item.topic}</Text>
                 </Pressable>
               </View>
