@@ -9,10 +9,10 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
 interface DataTypes {
-  category: string;
-  createdAt: string;
-  topic: string;
-  id: string;
+  category?: string;
+  createdAt?: string;
+  topic?: string;
+  id?: string;
 }
 
 function SwiperCategory() {
@@ -39,12 +39,10 @@ function SwiperCategory() {
     setSelectedCategory(category);
   };
 
-  const moveTopicDetail = (topic: string) => {
-    console.log(topic);
-
+  const moveTopicDetail = (item: DataTypes) => {
     router.push({
       pathname: "/swiper/swiperDetail",
-      params: { topic },
+      params: { ...item },
     });
   };
 
@@ -74,7 +72,7 @@ function SwiperCategory() {
             renderItem={({ item }) => (
               <View style={styles.swiperList}>
                 <Pressable
-                  onPress={() => moveTopicDetail(item.topic)}
+                  onPress={() => moveTopicDetail(item)}
                   style={styles.cardButton}
                 >
                   <Text style={styles.cardFont}>{item.topic}</Text>
