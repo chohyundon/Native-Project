@@ -1,15 +1,34 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useFormContext } from "react-hook-form";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { height } from "@/api/deviceSize";
 import { Colors } from "@/constants/Colors";
+import { useLocalSearchParams } from "expo-router";
+import { createUpdater, updateDocRef } from "@/api/updateDoc";
+import { DataTypes } from "@/types/fireStoreDataTypes";
+import { useUserData } from "@/store/signUpStore";
 
 function CommentInput() {
-  const { control } = useForm();
+  const { control, getValues } = useFormContext();
+  const data: DataTypes = useLocalSearchParams();
+  const userData = useUserData((state) => state.userData);
+
+  const handlePress = async () => {
+    const value = getValues("comment");
+    const id = data.id;
+    const userName = userData.name;
+
+    if (id) {
+      updateDocRef(id);
+    }
+    if (id && value && userName) {
+      createUpdater(id, value, userName);
+    }
+  };
 
   return (
     <Controller
-      name="myInput"
+      name="comment"
       control={control}
       render={({ field: { onChange, value } }) => {
         return (
@@ -21,11 +40,15 @@ function CommentInput() {
               placeholder="입력하세요"
             />
             <Pressable
-              style={{
-                flex: 0.1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              onPress={handlePress}
+              style={({ pressed }) => [
+                {
+                  width: "10%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  opacity: pressed ? 0.5 : 1,
+                },
+              ]}
             >
               <Ionicons
                 name="send-outline"
@@ -46,10 +69,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     paddingInline: 20,
     flexDirection: "row",
+    width: "100%",
   },
 
   input: {
-    flex: 0.9,
+    width: "90%",
     backgroundColor: Colors.primarySecond,
     padding: 12,
     borderRadius: 8,

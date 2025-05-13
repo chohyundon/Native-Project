@@ -1,13 +1,13 @@
 import { height } from "@/api/deviceSize";
 import CommentInput from "@/components/Input/CommentInput";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function SwiperDetailComment() {
   const insets = useSafeAreaInsets();
   const signUpForm = useForm({
-    defaultValues: { comment: "" },
+    defaultValues: { commentInput: "" },
   });
 
   return (

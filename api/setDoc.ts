@@ -17,12 +17,11 @@ interface topicData {
   id: string;
 }
 
-export const saveUserData = async (userData: userData) => {
+export const saveUserData = async (userData: userData, randomID: string) => {
   try {
-    const docRef = await addDoc(collection(db, "users"), {
+    await setDoc(doc(db, "users", randomID), {
       userInfo: userData,
     });
-    console.log("User data saved successfully!", docRef.id);
   } catch (e) {
     console.error("Firestore error:", e);
   }

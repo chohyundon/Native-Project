@@ -10,8 +10,6 @@ import { Colors } from "@/constants/Colors";
 
 function SwiperHeader({ translateTopicData, isLoading, handleTranslate }: any) {
   const { topic } = useLocalSearchParams();
-  const data = useLocalSearchParams();
-  console.log(data);
 
   return (
     <View>

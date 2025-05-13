@@ -5,24 +5,27 @@ import { saveUserData } from "@/api/setDoc";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { createAt } from "@/utils/today";
 import { router } from "expo-router";
+import uuid from "react-native-uuid";
 
 function SignUpFinish() {
   const getUserData = useUserData((state) => state.userData);
   const resetData = useUserData((state: any) => state.resetUserData);
   const createdAt = createAt;
+  const userId = uuid.v4();
 
   const handlePress = async () => {
     try {
       const userInfoData: any = {
         ...getUserData,
         createdAt: createdAt,
+        id: userId,
       };
 
       Alert.alert("알림", "회원가입을 성공했습니다", [
         {
           text: "확인",
           onPress: async () => {
-            await saveUserData(userInfoData);
+            await saveUserData(userInfoData, userId);
 
             setTimeout(() => {
               resetData();

@@ -1,14 +1,15 @@
-import { doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
-import { getUserName, matchUser } from "./getDoc";
+import { createAt } from "@/utils/today";
 
-export const updateDocRef = (id: string) => doc(db, "topic", id);
+export const updateDocRef = (id: string) => doc(db, "topics", id);
 
-export const awaitUpdate = async (id: string) => {
-  const userName = await getUserName();
-  console.log(userName);
-
+export const createUpdater = async (
+  id: string,
+  value: string,
+  userName: string
+) => {
   await updateDoc(updateDocRef(id), {
-    heart: 1,
+    comment: arrayUnion({ value, createAt, userName }),
   });
 };

@@ -2,19 +2,13 @@ import { height, width } from "@/api/deviceSize";
 import { getTopics } from "@/api/getDoc";
 import { Colors } from "@/constants/Colors";
 import { handleCategoryPress } from "@/hooks/useTopicCategory";
+import { DataTypes } from "@/types/fireStoreDataTypes";
 import { createAt } from "@/utils/today";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 // import PagerView from "react-native-pager-view"; -> 이거 key를 줘도 안되는데 이유를 ... 모르겠다
 import Carousel from "react-native-reanimated-carousel";
-
-interface DataTypes {
-  category?: string;
-  createdAt?: string;
-  topic?: string;
-  id?: string;
-}
 
 function SwiperCategory() {
   const [selectedCategory, setSelectedCategory] = useState("Today");
