@@ -1,6 +1,7 @@
 import { height, width } from "@/api/deviceSize";
 import { getTopics } from "@/api/getDoc";
 import { Colors } from "@/constants/Colors";
+import { handleCategoryPress } from "@/hooks/useTopicCategory";
 import { createAt } from "@/utils/today";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
@@ -22,22 +23,12 @@ function SwiperCategory() {
   const router = useRouter();
 
   useEffect(() => {
-    handleCategoryPress("Today");
+    const init = async () => {
+      const result = await handleCategoryPress("Today");
+      if (result) setData(result);
+    };
+    init();
   }, []);
-
-  const handleCategoryPress = async (category: string) => {
-    const getTopic = await getTopics();
-    const todayDate = createAt;
-
-    if (category === "Today") {
-      const filterTodayData = getTopic.filter(
-        (item) => item.createdAt === todayDate
-      );
-      setData(filterTodayData);
-    }
-
-    setSelectedCategory(category);
-  };
 
   const moveTopicDetail = (item: DataTypes) => {
     router.push({
@@ -46,11 +37,19 @@ function SwiperCategory() {
     });
   };
 
+  const selectCategory = async (category: string) => {
+    const data = await handleCategoryPress(category);
+    if (data) {
+      setData(data);
+    }
+    setSelectedCategory(category);
+  };
+
   return (
     <View>
       <View style={styles.categoryList}>
         {categoryList.map((category, index) => (
-          <Pressable key={index} onPress={() => handleCategoryPress(category)}>
+          <Pressable key={index} onPress={() => selectCategory(category)}>
             <Text
               style={[
                 styles.category,
@@ -69,7 +68,7 @@ function SwiperCategory() {
             data={data}
             width={width - 80}
             height={height * 0.45}
-            renderItem={({ item }) => (
+            renderItem={({ item }: any) => (
               <View style={styles.swiperList}>
                 <Pressable
                   onPress={() => moveTopicDetail(item)}

@@ -1,8 +1,9 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { useUserData } from "@/store/signUpStore";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { router } from "expo-router";
 
 function MyPage() {
   const userData = useUserData((state) => state.userData);
@@ -13,9 +14,20 @@ function MyPage() {
 
   const changeLoginStatus = () => {
     if (userName) {
-      return;
+      Alert.alert("알림", "로그아웃 하시겠습니까?", [
+        {
+          text: "네",
+          onPress: () => {
+            resetUserData();
+          },
+        },
+        {
+          text: "아니오",
+          onPress: () => {},
+        },
+      ]);
     } else {
-      resetUserData();
+      router.push("/auth");
     }
   };
 
