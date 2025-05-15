@@ -2,7 +2,6 @@ import PrevButton from "@/components/button/PrevButton";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { height, width } from "@/api/deviceSize";
-
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useLocalSearchParams } from "expo-router";
 import UserLikeToggle from "./userLikeToggle";
