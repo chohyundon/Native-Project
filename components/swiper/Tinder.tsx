@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { useUserData } from "@/store/signUpStore";
 import { Colors } from "@/constants/Colors";
 import { Suspense, useEffect, useState } from "react";
-import { getAiSwiperData } from "@/app/entities/getAiSwiperData";
+import { getAiSwiperData } from "@/components/entities/getAiSwiperData";
 import TinderSkeleton from "./TinderSkeleton";
 import { height, width } from "@/api/deviceSize";
 import Carousel from "react-native-reanimated-carousel";

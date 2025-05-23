@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   userDetail: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 20,
+    gap: 10,
     paddingInline: 10,
     paddingVertical: 5,
   },
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
 
   buttonClickCount: {
-    fontSize: 15,
+    fontSize: 13,
   },
 
   translateContainer: {

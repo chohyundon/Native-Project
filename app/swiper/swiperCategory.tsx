@@ -4,6 +4,7 @@ import { Colors } from "@/constants/Colors";
 import { handleCategoryPress } from "@/hooks/useTopicCategory";
 import { DataTypes } from "@/types/fireStoreDataTypes";
 import { createAt } from "@/utils/today";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     justifyContent: "center",
+    alignItems: "center",
   },
 
   cardButton: {
@@ -119,15 +121,18 @@ const styles = StyleSheet.create({
   },
 
   swiperSkeleton: {
-    justifyContent: "center",
-    backgroundColor: Colors.skeleton,
+    // backgroundColor: Colors.skeleton,
     borderRadius: 20,
+    height: "100%",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   cardFont: {
     fontSize: 20,
     fontWeight: "bold",
-    textAlign: "center",
+    justifyContent: "center",
     paddingHorizontal: 10,
   },
 });

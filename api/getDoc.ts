@@ -1,5 +1,5 @@
 import { db } from "@/api/firebaseConfig";
-import { collection, getDocs } from "@firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "@firebase/firestore";
 import { query, where } from "firebase/firestore";
 
 export const getUserEmail = async () => {
@@ -29,4 +29,9 @@ export const matchUser = async (value: string) => {
 export const getTopics = async () => {
   const data = await getDocs(collection(db, "topics"));
   return data.docs.map((doc) => doc.data().topicInfo);
+};
+
+export const getHeartData = async () => {
+  const data = await getDocs(collection(db, "topics"));
+  return data.docs.map((doc) => doc.data().topicInfo.userLike);
 };

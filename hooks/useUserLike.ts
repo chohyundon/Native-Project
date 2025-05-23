@@ -7,23 +7,17 @@ export const useUserLike = () => {
   const [count, setCount] = useState(0);
 
   const toggle = async (toggleParams: ToggleParamsTypes) => {
-    console.log(toggleParams.userInfo.name);
+    const next = !isLike;
+    const newCount = next ? count + 1 : Math.max(count - 1, 0);
 
-    setIsLike((prev) => {
-      const next = !prev;
+    setIsLike(next);
+    setCount(newCount);
 
-      setCount((prevCount) => {
-        const newCount = next ? prevCount + 1 : Math.max(prevCount - 1, 0);
-        updateLike(
-          toggleParams.data.id,
-          newCount,
-          String(toggleParams.userInfo.name)
-        );
-        return newCount;
-      });
-
-      return next;
-    });
+    updateLike(
+      toggleParams.data.id,
+      newCount,
+      String(toggleParams.userInfo.name)
+    );
   };
 
   return { isLike, toggle, count };

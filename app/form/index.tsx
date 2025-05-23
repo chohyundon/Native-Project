@@ -11,7 +11,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { CategoryList } from "../entities/Category";
+import { CategoryList } from "../../components/entities/Category";
 import { useState } from "react";
 import { Alert } from "react-native";
 import uuid from "react-native-uuid";

@@ -10,7 +10,7 @@ export const createUpdater = async (
   userName: string
 ) => {
   await updateDoc(updateDocRef(id), {
-    comment: arrayUnion({ value, createAt, userName }),
+    "topicInfo.comment": arrayUnion({ value, createAt, userName }),
   });
 };
 
@@ -20,6 +20,6 @@ export const updateLike = async (
   userName: string
 ) => {
   await updateDoc(updateDocRef(id), {
-    userLike: arrayUnion({ value, createAt, userName }),
+    "topicInfo.userLike": arrayUnion({ value, createAt, userName }),
   });
 };

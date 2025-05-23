@@ -1,7 +1,20 @@
-import { Tabs } from "expo-router";
+import { SplashScreen, Tabs } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useEffect, useState } from "react";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function TabLayout() {
+  useEffect(() => {
+    const load = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      await SplashScreen.hideAsync();
+    };
+
+    load();
+  }, []);
+
   return (
     <Tabs>
       <Tabs.Screen

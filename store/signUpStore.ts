@@ -16,6 +16,8 @@ const initialUserData = {
   nickname: "",
   residentFirst: "",
   residentLast: "",
+  id: "",
+  createdAt: "",
 };
 
 const initialAiChatData: { userInput: string; AiResponse: string }[] = [];
